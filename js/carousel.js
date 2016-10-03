@@ -40,11 +40,12 @@
     this.carousel.appendChild(playWrap);
 
     const currentObj = this;
+    console.log('this is ', this)
 
-    prevBtn.addEventListener('click', () => {
+    prevBtn.addEventListener('click', function () {
       currentObj.prev();
     });
-    nextBtn.addEventListener('click', () => {
+    nextBtn.addEventListener('click', function () {
       currentObj.next();
     });
 
@@ -58,8 +59,9 @@
   };
 
   Carousel.prototype.next = function next() {
-    const nextSlide = this.activeSlide + 1 < this.slidesNum ? this.activeSlide + 1 : 0;
-    this.move(nextSlide);
+    // const nextSlide = this.activeSlide + 1 < this.slidesNum ? this.activeSlide + 1 : 0;
+    // this.move(nextSlide);
+    console.log(this);
   };
 
   Carousel.prototype.prev = function prev() {
@@ -84,7 +86,7 @@
     }, 4000);
   }
 
-  Carousel.prototype.play = () => {
+  Carousel.prototype.play = function() {
     const obj = this;
     const interval = trigger(obj);
 
