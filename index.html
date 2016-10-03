@@ -4,40 +4,47 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<link href="css/normalize.css" rel="stylesheet">
+	<!-- <link href="css/style.css" rel="stylesheet"> -->
 </head>
 <body>
-	<section class="carousel">
-		<div class="carousel__controls">
-			<ul>
-				<li>0</li>
-				<li>1</li>
-				<li>2</li>
-			</ul>
+	<!-- <section class="carousel">
+
+		<div class="carousel__inner-wrapper">
+			<div class="carousel__inner">
+				<article class="carousel__slide">
+					<img src="http://placehold.it/700x300">
+				</article>
+				<article class="carousel__slide">
+					<img src="http://placehold.it/700x300">
+				</article>
+				<article class="carousel__slide">
+					<img src="http://placehold.it/700x300">
+				</article>
+				<article class="carousel__slide">
+					<img src="http://placehold.it/700x300">
+				</article>
+			</div>
 		</div>
-		<div class="carousel__inner">
-			<!-- <article class="carousel__slide">
-				<img src="http://placehold.it/350x150">
-			</article>
-			<article class="carousel__slide">
-				<img src="http://placehold.it/350x150">
-			</article>
-			<article class="carousel__slide">
-				<img src="http://placehold.it/350x150">
-			</article> -->
-		</div>
-	</section>
+	</section> -->
 	<x-carousel>
-		<div slot="slide" class="carousel__slide">
-			<img src="http://placehold.it/350x150">
+		<div class='carousel__inner-wrapper' >
+			
+				<div class='carousel__inner'>
+					<article>
+						<img src="http://placehold.it/700x300">
+					</article> 
+					<article>
+						<img src="http://placehold.it/700x300">
+					</article>
+					<article >
+						<img src="http://placehold.it/700x300">
+					</article>
+				</div>
+			
 		</div>
-		<article slot="slide" class="carousel__slide">
-			<img src="http://placehold.it/350x150">
-		</article>
-		<article slot="slide" class="carousel__slide">
-			<img src="http://placehold.it/350x150">
-		</article>
 	</x-carousel>
-	<script src="js/script.js"></script>
+	<!-- <script src="js/carousel.js"></script> -->
+	<script src="js/script_v2.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.22/webcomponents.js"></script>
 </body>
 </html>
