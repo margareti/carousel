@@ -1,5 +1,5 @@
 class Carousel extends HTMLElement {
-
+  
   init() {
     const shadowRoot = this.attachShadow({ mode: 'closed' });
     shadowRoot.innerHTML = `
@@ -99,6 +99,9 @@ class Carousel extends HTMLElement {
 
     this.slidesNum = slides.length;
     this.activeSlide = 0;
+    this.slideDetail = {
+      slideNum: this.activeSlide,
+    }
 
     prevBtn.classList.add('prev');
     nextBtn.classList.add('next');
@@ -137,11 +140,9 @@ class Carousel extends HTMLElement {
       currentObj.pause();
     });
 
-
+ 
     this.slideEvent = new CustomEvent('slidechange', {
-      detail: {
-        slideNum: this.activeSlide,
-      },
+      detail: this.slideDetail,
       bubbles: true,
     });
 
@@ -168,6 +169,7 @@ class Carousel extends HTMLElement {
     const offset = num * this.carousel.offsetWidth * -1;
     this.innerCarousel.style.left = `${offset}px`;
     this.activeSlide = num;
+    this.slideDetail.slideNum = num;
     this.dispatchEvent(this.slideEvent);
   }
 
