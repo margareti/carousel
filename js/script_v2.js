@@ -6,25 +6,28 @@ class Carousel extends HTMLElement {
   init() {
 
   	const shadowRoot = this.attachShadow({ mode: 'closed' });
-  	
+  	// <article class="carousel__slide">
+			// 				<img src="http://placehold.it/700x300">
+			// 			</article>
+			// 			<article class="carousel__slide">
+			// 				<img src="http://placehold.it/700x300">
+			// 			</article>
+			// 			<article class="carousel__slide">
+			// 				<img src="http://placehold.it/700x300">
+			// 			</article>
+			// 			<article class="carousel__slide">
+			// 				<img src="http://placehold.it/700x300">
+			// 			</article>
   	shadowRoot.innerHTML = `
 	  	<section class='carousel'>
 		  	<div class="carousel__inner-wrapper">
 					<div class="carousel__inner">
-						<article class="carousel__slide">
-							<img src="http://placehold.it/700x300">
-						</article>
-						<article class="carousel__slide">
-							<img src="http://placehold.it/700x300">
-						</article>
-						<article class="carousel__slide">
-							<img src="http://placehold.it/700x300">
-						</article>
-						<article class="carousel__slide">
-							<img src="http://placehold.it/700x300">
-						</article>
+						<slot name="s1"></slot>
+						<slot name="s2"></slot>
+						<slot name="s3"></slot>
 					</div>
 				</div>
+  	
 			</section>
   	`;
   	shadowRoot.innerHTML += `
@@ -54,8 +57,8 @@ class Carousel extends HTMLElement {
 			  transition-timing-function: ease-in;
 			  left: 0;
 			}
-			.carousel__inner > *{
-			  display: inline-block;
+			.carousel__inner > ::slotted(.carousel__slide){
+			  display: inline-block !important;
 			  font-size: 16px;
 			}
 			.carousel__controls button {
@@ -97,7 +100,7 @@ class Carousel extends HTMLElement {
 		</style>
   	`;
   	this.timeout = parseInt(this.getAttribute('timeout'), 10) * 1000;
-
+  	console.log('this is ', this)
     this.carousel = shadowRoot.querySelector('.carousel');
     this.carouselWrapper = this.carousel.querySelector('.carousel__inner-wrap');
     this.innerCarousel = this.carousel.querySelector('.carousel__inner');
