@@ -193,3 +193,4 @@ class Carousel extends HTMLElement {
   }
 }
 
+document.registerElement('x-carousel', Carousel);
