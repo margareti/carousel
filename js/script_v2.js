@@ -120,19 +120,21 @@ class Carousel extends HTMLElement {
     this.carousel.appendChild(controls);
     this.carousel.appendChild(playWrap);
 
+    const currentObj = this;
+
     prevBtn.addEventListener('click', () => {
-      this.prev();
+      currentObj.prev();
     });
     nextBtn.addEventListener('click', () => {
-      this.next();
+      currentObj.next();
     });
 
     playBtn.addEventListener('click', () => {
-      this.play();
+      currentObj.play();
     });
 
     pauseBtn.addEventListener('click', () => {
-      this.pause();
+      currentObj.pause();
     });
 
 
@@ -166,7 +168,6 @@ class Carousel extends HTMLElement {
     const offset = num * this.carousel.offsetWidth * -1;
     this.innerCarousel.style.left = `${offset}px`;
     this.activeSlide = num;
-
     this.dispatchEvent(this.slideEvent);
   }
 
