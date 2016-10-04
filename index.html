@@ -4,28 +4,9 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<link href="css/normalize.css" rel="stylesheet">
-	<link href="css/style.css" rel="stylesheet">
+
 </head>
 <body>
-<!-- 	<section class="carousel">
-
-		<div class="carousel__inner-wrapper">
-			<div class="carousel__inner">
-				<article class="carousel__slide">
-					<img src="http://placehold.it/700x300">
-				</article>
-				<article class="carousel__slide">
-					<img src="http://placehold.it/700x300">
-				</article>
-				<article class="carousel__slide">
-					<img src="http://placehold.it/700x300">
-				</article>
-				<article class="carousel__slide">
-					<img src="http://placehold.it/700x300">
-				</article>
-			</div>
-		</div>
-	</section> -->
 	<x-carousel timeout="2">
 	
 		<article class="carousel__slide" slot="s1">
@@ -39,10 +20,49 @@
 		</article>
 
 	</x-carousel>
-	<!-- <script src="js/carousel.js"></script> -->
+	<x-carousel timeout="2">
+	
+		<article class="carousel__slide" slot="s1">
+			<img src="http://placehold.it/700x300">
+		</article> 
+		<article class="carousel__slide"  slot="s2">
+			<img src="http://placehold.it/700x300">
+		</article>
+		<article class="carousel__slide" slot="s3">
+			<img src="http://placehold.it/700x300">
+		</article>
 
+	</x-carousel>
+	<x-carousel timeout="2">
+	
+		<article class="carousel__slide" slot="s1">
+			<img src="http://placehold.it/700x300">
+		</article> 
+		<article class="carousel__slide"  slot="s2">
+			<img src="http://placehold.it/700x300">
+		</article>
+		<article class="carousel__slide" slot="s3">
+			<img src="http://placehold.it/700x300">
+		</article>
+
+	</x-carousel>
 
 	<script src="js/script_v2.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.22/webcomponents.js"></script>
+
+	<script>
+		document.registerElement('x-carousel', Carousel);
+
+		document.querySelector('body').addEventListener('started', function(e) { 
+			console.log('started');
+		});
+
+		document.querySelector('body').addEventListener('stopped', function(e) { 
+			console.log('paused');
+		});
+
+		document.querySelector('body').addEventListener('slidechange', function(e) { 
+			console.log('slidechange ' + JSON.stringify(e.detail));
+		});
+	</script>
 </body>
 </html>

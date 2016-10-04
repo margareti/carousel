@@ -1,24 +1,8 @@
 class Carousel extends HTMLElement {
-  constructor() {
-    super();
-  }
 
   init() {
-
-  	const shadowRoot = this.attachShadow({ mode: 'closed' });
-  	// <article class="carousel__slide">
-			// 				<img src="http://placehold.it/700x300">
-			// 			</article>
-			// 			<article class="carousel__slide">
-			// 				<img src="http://placehold.it/700x300">
-			// 			</article>
-			// 			<article class="carousel__slide">
-			// 				<img src="http://placehold.it/700x300">
-			// 			</article>
-			// 			<article class="carousel__slide">
-			// 				<img src="http://placehold.it/700x300">
-			// 			</article>
-  	shadowRoot.innerHTML = `
+    const shadowRoot = this.attachShadow({ mode: 'closed' });
+    shadowRoot.innerHTML = `
 	  	<section class='carousel'>
 		  	<div class="carousel__inner-wrapper">
 					<div class="carousel__inner">
@@ -30,7 +14,7 @@ class Carousel extends HTMLElement {
   	
 			</section>
   	`;
-  	shadowRoot.innerHTML += `
+    shadowRoot.innerHTML += `
 		<style>
 			body {
 				margin: 0;
@@ -43,7 +27,7 @@ class Carousel extends HTMLElement {
 			.carousel {
 				max-width: 700px;
 				margin: 0 auto;
-
+				margin-bottom: 30px;
 				position: relative;
 			}
 			.carousel__inner-wrapper {
@@ -99,16 +83,10 @@ class Carousel extends HTMLElement {
 			}
 		</style>
   	`;
-  	this.timeout = parseInt(this.getAttribute('timeout'), 10) * 1000;
-  	console.log('this is ', this)
+    this.timeout = parseInt(this.getAttribute('timeout'), 10) * 1000;
     this.carousel = shadowRoot.querySelector('.carousel');
-    this.carouselWrapper = this.carousel.querySelector('.carousel__inner-wrap');
+
     this.innerCarousel = this.carousel.querySelector('.carousel__inner');
-
-    console.log('shadow root ', shadowRoot);
-    console.log('this carousel ', this.carousel);
-    console.log('this caoursel-wrap ', this.carouselWrapper);
-
     const slides = [...this.innerCarousel.children];
     const playWrap = document.createElement('div');
     playWrap.classList.add('carousel__play');
@@ -142,54 +120,47 @@ class Carousel extends HTMLElement {
     this.carousel.appendChild(controls);
     this.carousel.appendChild(playWrap);
 
-    const currentObj = this;
-    console.log("this is ", this)
-
     prevBtn.addEventListener('click', () => {
-      currentObj.prev();
+      this.prev();
     });
     nextBtn.addEventListener('click', () => {
-      currentObj.next();
+      this.next();
     });
 
     playBtn.addEventListener('click', () => {
-      currentObj.play();
+      this.play();
     });
 
     pauseBtn.addEventListener('click', () => {
-      currentObj.pause();
+      this.pause();
     });
 
 
-    this.slideEvent = new Event("slidechange", {
-  		//detail: this.activeSlide,
-  		bubbles: true,
-		});
+    this.slideEvent = new CustomEvent('slidechange', {
+      detail: {
+        slideNum: this.activeSlide,
+      },
+      bubbles: true,
+    });
 
-    this.pausedEvent = new Event("stopped", {
-    	bubbles: true,
-  		// detail: {
-		  //   playing: false,
-		  // }
-		});
-    this.playEvent = new Event("started", {
-    	bubbles: true,
-  		// detail: {
-		  //   playing: true,
-		  // }
-		});
-  };
+    this.pausedEvent = new Event('stopped', {
+      bubbles: true,
+    });
+    this.playEvent = new Event('started', {
+      bubbles: true,
+    });
+  }
 
 
   next() {
     const nextSlide = this.activeSlide + 1 < this.slidesNum ? this.activeSlide + 1 : 0;
     this.move(nextSlide);
-  };
+  }
 
   prev() {
     const nextSlide = this.activeSlide - 1 >= 0 ? this.activeSlide - 1 : this.slidesNum - 1;
     this.move(nextSlide);
-  };
+  }
 
   move(num) {
     const offset = num * this.carousel.offsetWidth * -1;
@@ -197,22 +168,18 @@ class Carousel extends HTMLElement {
     this.activeSlide = num;
 
     this.dispatchEvent(this.slideEvent);
-  };
+  }
 
   pause() {
-    const obj = this;
-    clearInterval(obj.playing);
+    clearInterval(this.playing);
     this.dispatchEvent(this.pausedEvent);
-  };
+  }
 
-	play() {
-    const obj = this;
-    const interval = this.trigger(obj, this.timeout);
+  play() {
+    const interval = this.trigger(this, this.timeout);
     this.playing = interval;
     this.dispatchEvent(this.playEvent);
-  };
-
-
+  }
 
   trigger(obj, seconds) {
     return setInterval(() => {
@@ -221,24 +188,7 @@ class Carousel extends HTMLElement {
   }
 
   createdCallback() {
-  	console.log(this);
-  	this.init();
+    this.init();
   }
 }
 
-
-document.registerElement('x-carousel', Carousel);
-
-document.querySelector('body').addEventListener('started', function(e) { 
-	//process(e.detail);
-	console.log('started');
-});
-
-document.querySelector('body').addEventListener('stopped', function(e) { 
-	//process(e.detail);
-	console.log('paused');
-});
-document.querySelector('body').addEventListener('slidechange', function(e) { 
-	console.log('slidechange ' + JSON.stringify(e));
-	//process(e.detail) 
-});
